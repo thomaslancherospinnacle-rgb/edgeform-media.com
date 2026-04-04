@@ -383,7 +383,7 @@ function showStep(id){
   t.classList.add('active'); S.step=id; refreshDots(); updateNav();
   const card=document.getElementById('formCard');
   card.classList.toggle('wide', id===5);
-  if(id===5){updateStep5Copy(); setTimeout(initCanvas,80);}
+  if(id===5){updateStep5Copy();}
 }
 function goToStep(id){S.history.push(id);showStep(id);}
 function goBack(){if(S.history.length>1){S.history.pop();showStep(S.history[S.history.length-1]);}}
@@ -435,7 +435,7 @@ function setMode(m){
   document.getElementById('modeVisual').classList.toggle('active',m==='visual');
   document.getElementById('textMode').style.display=m==='text'?'block':'none';
   document.getElementById('visualMode').style.display=m==='visual'?'block':'none';
-  if(m==='visual')setTimeout(()=>{initCanvas();resizeCanvas();},60);
+  if(m==='visual'){requestAnimationFrame(()=>requestAnimationFrame(()=>{initCanvas();}));}
 }
 
 // ── SUBMIT ────────────────────────────────────────────────────
@@ -489,7 +489,14 @@ function initCanvas(){
   if(canvas){resizeCanvas();return;}
   canvas=document.getElementById('builderCanvas');
   ctx=canvas.getContext('2d');
-  buildBlocksPanel(); resizeCanvas(); saveUndo();
+  buildBlocksPanel();
+  // Wait for the container to have real dimensions (it was display:none before)
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      resizeCanvas();
+      saveUndo();
+    });
+  });
   canvas.addEventListener('mousedown',onDown);
   canvas.addEventListener('mousemove',onMove);
   canvas.addEventListener('mouseup',onUp);
@@ -514,10 +521,12 @@ function t2m(e){const t=e.touches[0]||e.changedTouches[0];return{clientX:t.clien
 function resizeCanvas(){
   if(!canvas)return;
   const cc=document.getElementById('canvasContainer');
+  const W=cc.clientWidth, H=cc.clientHeight;
+  if(!W||!H)return;
   const dpr=window.devicePixelRatio||1;
-  const snap=ctx?ctx.getImageData(0,0,canvas.width,canvas.height):null;
-  canvas.width=cc.clientWidth*dpr; canvas.height=cc.clientHeight*dpr;
-  canvas.style.width=cc.clientWidth+'px'; canvas.style.height=cc.clientHeight+'px';
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.setTransform(1,0,0,1,0,0);
   ctx.scale(dpr,dpr);
   drawAll();
 }
@@ -707,7 +716,7 @@ function setTool(t){
 }
 function pickColor(el){document.querySelectorAll('.opt-color').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');drawColor=el.dataset.color;document.getElementById('customColor').value=drawColor;}
 function toggleGradient(){useGradient=!useGradient;document.getElementById('gradBtn').classList.toggle('active',useGradient);document.getElementById('gradControls').style.display=useGradient?'flex':'none';}
-function saveUndo(){if(!canvas)return;undoStack.push({id:ctx.getImageData(0,0,canvas.width,canvas.height),els:JSON.parse(JSON.stringify(elements.map(e=>e.type==='image'?{...e,img:null}:e)))});if(undoStack.length>30)undoStack.shift();}
+function saveUndo(){if(!canvas||!canvas.width||!canvas.height)return;try{undoStack.push({id:ctx.getImageData(0,0,canvas.width,canvas.height),els:JSON.parse(JSON.stringify(elements.map(e=>e.type==='image'?{...e,img:null}:e)))});if(undoStack.length>30)undoStack.shift();}catch(e){}}
 function undoAction(){if(undoStack.length<=1)return;undoStack.pop();const p=undoStack[undoStack.length-1];ctx.putImageData(p.id,0,0);elements=p.els;drawAll();}
 function deleteSelected(){if(!selectedEl)return;elements=elements.filter(e=>e!==selectedEl);selectedEl=null;saveUndo();drawAll();}
 function clearCanvas(){saveUndo();elements=[];ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,canvas.width,canvas.height);drawAll();}
@@ -718,6 +727,45 @@ function clearCanvas(){saveUndo();elements=[];ctx.fillStyle='#0a0a0a';ctx.fillRe
   GOOGLE APPS SCRIPT — paste at script.google.com
 ═══════════════════════════════════════════════════════
 
+function doPost(e) {
+  const data = JSON.parse(e.postData.contents);
+  const ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
+  const sheet = ss.getSheetByName('Leads') || ss.insertSheet('Leads');
+
+  // Add header row if empty
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Timestamp','Name','Phone','Has Website','Business Type','Description','Mode','Sketch URL','Status']);
+  }
+
+  let imageUrl = '';
+  if (data.canvasImage) {
+    const folder = DriveApp.getFolderById('YOUR_DRIVE_FOLDER_ID');
+    const blob = Utilities.newBlob(
+      Utilities.base64Decode(data.canvasImage),
+      'image/png',
+      `sketch_${(data.name||'unknown').replace(/\s/g,'_')}_${Date.now()}.png`
+    );
+    const file = folder.createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    imageUrl = file.getUrl();
+  }
+
+  sheet.appendRow([
+    data.timestamp,
+    data.name || '',
+    data.phone || '',
+    data.hasWebsite || '',
+    data.businessType || '',
+    data.websiteDescription || '',
+    data.inputMode || 'text',
+    imageUrl,
+    data.autoSave ? 'partial' : 'complete'
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
 ═══════════════════════════════════════════════════════
   DEPLOY STEPS:
