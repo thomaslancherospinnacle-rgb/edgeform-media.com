@@ -30,9 +30,30 @@
     background: #000;
     color: #fff;
     overflow-x: hidden;
+    cursor: none;
   }
 
-
+  /* Custom Cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), width 0.3s, height 0.3s, opacity 0.3s;
+  }
+  .cursor-ring.hover { width: 56px; height: 56px; opacity: 0.6; }
 
   /* NAV */
   nav {
@@ -74,6 +95,7 @@
     border-radius: 20px;
     font-size: 13px;
     font-family: 'DM Sans', sans-serif;
+    cursor: none;
     transition: background 0.2s, transform 0.2s;
   }
   .nav-cta:hover { background: var(--blue-hover); transform: scale(1.03); }
@@ -157,6 +179,7 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
+    cursor: none;
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -169,6 +192,7 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
+    cursor: none;
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -414,129 +438,35 @@
   .mockup-booking-title {
     font-family: 'Playfair Display', serif;
     font-size: 18px;
-    margin-bottom: 4px;
+    margin-bottom: 20px;
     color: rgba(255,255,255,0.9);
   }
-  .mockup-amount {
-    font-size: 28px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 4px;
-    font-family: 'Playfair Display', serif;
-  }
-  .mockup-amount-sub { font-size: 12px; color: var(--mid-gray); margin-bottom: 20px; }
-  .mockup-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 16px 0; }
-  .form-row { margin-bottom: 12px; }
-  .form-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+  .form-row { margin-bottom: 14px; }
+  .form-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 6px; }
   .form-field {
-    background: rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 11px 14px;
+    border-radius: 10px;
+    padding: 12px 16px;
     font-size: 14px;
-    color: rgba(255,255,255,0.55);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .form-field.focused { border-color: rgba(41,151,255,0.5); background: rgba(41,151,255,0.04); color: rgba(255,255,255,0.85); }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-  .stripe-card-row {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  .stripe-card-top {
-    padding: 11px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    color: rgba(255,255,255,0.55);
-  }
-  .stripe-card-icons { display: flex; gap: 6px; align-items: center; }
-  .card-brand {
-    height: 18px;
-    border-radius: 3px;
-    padding: 2px 5px;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    display: flex; align-items: center;
-  }
-  .card-visa { background: #1a1f71; color: #fff; }
-  .card-mc { background: #eb001b; color: #fff; width: 28px; height: 18px; border-radius: 3px; position: relative; overflow: hidden; }
-  .card-mc::after { content: ''; position: absolute; right: 3px; top: 0; bottom: 0; width: 18px; border-radius: 3px; background: #f79e1b; opacity: 0.85; }
-  .card-amex { background: #007bc1; color: #fff; }
-  .stripe-card-bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .stripe-card-field {
-    padding: 11px 14px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
-    border-right: 1px solid rgba(255,255,255,0.07);
-  }
-  .stripe-card-field:last-child { border-right: none; }
-  .order-summary {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 14px;
-  }
-  .order-line {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
     color: rgba(255,255,255,0.5);
-    margin-bottom: 8px;
+    width: 100%;
   }
-  .order-line:last-child { margin-bottom: 0; color: rgba(255,255,255,0.85); font-weight: 500; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 8px; margin-top: 4px; }
-  .order-line .val { color: rgba(255,255,255,0.75); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
   .pay-btn {
     width: 100%;
-    background: #635bff;
+    background: var(--blue);
     color: #fff;
     border: none;
-    padding: 13px;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
     font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    letter-spacing: 0.01em;
+    font-weight: 500;
+    margin-top: 6px;
+    cursor: none;
   }
-  .stripe-logo-inline {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #fff;
-    opacity: 0.9;
-  }
-  .stripe-logo-inline .s { color: #635bff; font-size: 14px; }
-  .pay-secure {
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    text-align: center;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
-  .pay-secure a { color: #635bff; text-decoration: none; font-weight: 500; }
+  .pay-secure { font-size: 11px; color: var(--mid-gray); text-align: center; margin-top: 10px; }
 
   /* ADS SECTION */
   .ads-section {
@@ -861,6 +791,10 @@
 </head>
 <body>
 
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- Nav -->
 <nav>
   <a href="#" class="nav-logo">Edge<span>form</span> Media</a>
@@ -1016,62 +950,31 @@
           <div class="mockup-url">yourbusiness.com/book</div>
         </div>
         <div class="mockup-body">
-          <div class="mockup-booking-title">Complete your booking</div>
-          <div class="mockup-amount">$75.00</div>
-          <div class="mockup-amount-sub">Deposit · HVAC Maintenance Inspection · Apr 12, 9:00 AM</div>
-
-          <div class="order-summary">
-            <div class="order-line"><span>HVAC Maintenance Inspection</span><span class="val">$250.00</span></div>
-            <div class="order-line"><span>Deposit due today</span><span class="val">$75.00</span></div>
-            <div class="order-line"><span>Remaining at service</span><span class="val">$175.00</span></div>
-          </div>
-
+          <div class="mockup-booking-title">Book Your Service</div>
           <div class="form-row">
-            <div class="form-label">Email</div>
-            <div class="form-field focused">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="#635bff" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="#635bff" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a070309020b0f06441e0518180f192a0d070b030644090507">[email&#160;protected]</a>
-            </div>
+            <div class="form-label">Service Type</div>
+            <div class="form-field">HVAC Maintenance Inspection ▾</div>
           </div>
-
-          <div class="form-label" style="margin-bottom:8px;">
-            Card information
-            <div class="stripe-card-icons">
-              <div class="card-brand card-visa">VISA</div>
-              <div class="card-mc"></div>
-              <div class="card-brand card-amex">AMEX</div>
-            </div>
-          </div>
-          <div class="stripe-card-row">
-            <div class="stripe-card-top">
-              <span>•••• •••• •••• 4242</span>
-              <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><rect x="0.5" y="0.5" width="21" height="15" rx="2.5" stroke="rgba(255,255,255,0.15)"/><rect x="0" y="4" width="22" height="4" fill="rgba(255,255,255,0.06)"/><rect x="3" y="9" width="7" height="3" rx="1" fill="rgba(255,255,255,0.12)"/></svg>
-            </div>
-            <div class="stripe-card-bottom">
-              <div class="stripe-card-field">04 / 28</div>
-              <div class="stripe-card-field">CVC •••</div>
-            </div>
-          </div>
-
           <div class="form-grid">
             <div>
-              <div class="form-label">First name</div>
-              <div class="form-field">Michael</div>
+              <div class="form-label">Date</div>
+              <div class="form-field">Apr 12, 2026</div>
             </div>
             <div>
-              <div class="form-label">Last name</div>
-              <div class="form-field">Torres</div>
+              <div class="form-label">Time</div>
+              <div class="form-field">9:00 AM ▾</div>
             </div>
           </div>
-
-          <button class="pay-btn">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 4L5.5 9.5 3 7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Pay $75.00 deposit
-          </button>
-          <div class="pay-secure">
-            <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 1L1 3v3c0 2.5 1.8 4.8 4 5.5C8.2 10.8 10 8.5 10 6V3L5 1z" stroke="rgba(255,255,255,0.3)" stroke-width="1"/></svg>
-            Powered by <a href="#">Stripe</a> &nbsp;·&nbsp; 256-bit encryption
+          <div class="form-row">
+            <div class="form-label">Full Name</div>
+            <div class="form-field">Michael Torres</div>
           </div>
+          <div class="form-row">
+            <div class="form-label">Card Number</div>
+            <div class="form-field">•••• •••• •••• 4242</div>
+          </div>
+          <button class="pay-btn">Confirm & Pay Deposit — $75.00</button>
+          <div class="pay-secure">🔒 Secured by Stripe</div>
         </div>
       </div>
     </div>
@@ -1197,7 +1100,32 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top = my - 5 + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx - 18) * 0.12;
+    ry += (my - ry - 18) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
   const observer = new IntersectionObserver((entries) => {
@@ -1212,4 +1140,10 @@
 
   // Parallax hero glow
   window.addEventListener('scroll', () => {
-    const y = window
+    const y = window.scrollY;
+    document.querySelector('.hero-glow').style.transform = `translate(-50%, calc(-50% + ${y * 0.3}px))`;
+    document.querySelector('.hero-grid').style.transform = `translateY(${y * 0.15}px)`;
+  });
+</script>
+</body>
+</html>
