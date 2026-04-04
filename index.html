@@ -32,29 +32,6 @@
     overflow-x: hidden;
     cursor: none;
   }
-
-  /* Custom Cursor */
-  .cursor {
-    width: 10px; height: 10px;
-    background: #fff;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), width 0.3s, height 0.3s, opacity 0.3s;
-  }
-  .cursor-ring.hover { width: 56px; height: 56px; opacity: 0.6; }
-
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
