@@ -30,7 +30,7 @@
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    cursor: none;
+     
   }
   /* NAV */
   nav {
@@ -72,7 +72,7 @@
     border-radius: 20px;
     font-size: 13px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
+     
     transition: background 0.2s, transform 0.2s;
   }
   .nav-cta:hover { background: var(--blue-hover); transform: scale(1.03); }
@@ -156,7 +156,7 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
+     
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -169,7 +169,7 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
+     
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -441,7 +441,7 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     margin-top: 6px;
-    cursor: none;
+     
   }
   .pay-secure { font-size: 11px; color: var(--mid-gray); text-align: center; margin-top: 10px; }
 
@@ -767,11 +767,6 @@
 </style>
 </head>
 <body>
-
-<!-- Cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Nav -->
 <nav>
   <a href="#" class="nav-logo">Edge<span>form</span> Media</a>
@@ -1078,26 +1073,6 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 5 + 'px';
-    cursor.style.top = my - 5 + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx - 18) * 0.12;
-    ry += (my - ry - 18) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
