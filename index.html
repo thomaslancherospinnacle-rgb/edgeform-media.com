@@ -30,30 +30,9 @@
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    cursor: none;
   }
 
-  /* Custom Cursor */
-  .cursor {
-    width: 10px; height: 10px;
-    background: #fff;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), width 0.3s, height 0.3s, opacity 0.3s;
-  }
-  .cursor-ring.hover { width: 56px; height: 56px; opacity: 0.6; }
+
 
   /* NAV */
   nav {
@@ -95,7 +74,6 @@
     border-radius: 20px;
     font-size: 13px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
     transition: background 0.2s, transform 0.2s;
   }
   .nav-cta:hover { background: var(--blue-hover); transform: scale(1.03); }
@@ -179,7 +157,6 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -192,7 +169,6 @@
     border-radius: 30px;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
-    cursor: none;
     transition: all 0.2s;
     font-weight: 500;
   }
@@ -533,7 +509,6 @@
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
-    cursor: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -886,10 +861,6 @@
 </head>
 <body>
 
-<!-- Cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- Nav -->
 <nav>
   <a href="#" class="nav-logo">Edge<span>form</span> Media</a>
@@ -1059,7 +1030,7 @@
             <div class="form-label">Email</div>
             <div class="form-field focused">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="#635bff" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="#635bff" stroke-width="1.2" stroke-linecap="round"/></svg>
-              michael.torres@gmail.com
+              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a070309020b0f06441e0518180f192a0d070b030644090507">[email&#160;protected]</a>
             </div>
           </div>
 
@@ -1226,32 +1197,7 @@
   </div>
 </footer>
 
-<script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 5 + 'px';
-    cursor.style.top = my - 5 + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx - 18) * 0.12;
-    ry += (my - ry - 18) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-  });
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
   const observer = new IntersectionObserver((entries) => {
@@ -1266,10 +1212,4 @@
 
   // Parallax hero glow
   window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    document.querySelector('.hero-glow').style.transform = `translate(-50%, calc(-50% + ${y * 0.3}px))`;
-    document.querySelector('.hero-grid').style.transform = `translateY(${y * 0.15}px)`;
-  });
-</script>
-</body>
-</html>
+    const y = window
