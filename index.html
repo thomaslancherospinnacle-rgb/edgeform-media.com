@@ -46,13 +46,18 @@
     transition: background 0.3s;
   }
   .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    letter-spacing: 0.02em;
-    color: #fff;
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
-  .nav-logo span { color: var(--accent); }
+  .nav-logo-img {
+    height: 36px;
+    width: auto;
+    aspect-ratio: 4 / 1;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+  }
   .nav-links {
     display: flex; gap: 32px; list-style: none;
   }
@@ -674,11 +679,17 @@
     align-items: center;
   }
   .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
   }
-  .footer-logo span { color: var(--accent); }
+  .footer-logo-img {
+    height: 32px;
+    width: auto;
+    aspect-ratio: 4 / 1;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+  }
   footer p {
     font-size: 13px;
     color: rgba(255,255,255,0.25);
@@ -769,7 +780,7 @@
 <body>
 <!-- Nav -->
 <nav>
-  <a href="#" class="nav-logo">Edge<span>form</span> Media</a>
+  <a href="#" class="nav-logo"><img src="logo.png" alt="Edgeform Media Agency" class="nav-logo-img"></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#booking">Why Us</a></li>
@@ -1062,7 +1073,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Edge<span>form</span> Media</div>
+  <div class="footer-logo"><img src="logo.png" alt="Edgeform Media Agency" class="footer-logo-img"></div>
   <p>© 2026 Edgeform Media. All rights reserved.</p>
   <div class="footer-links">
     <a href="#services">Services</a>
