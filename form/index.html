@@ -366,9 +366,7 @@ footer{position:relative;z-index:5;text-align:center;padding:24px;font-size:12px
 // ── STATE ────────────────────────────────────────────────────
 const S = { step:1, history:[1], websiteAnswer:null, data:{}, mode:'text' };
 const TOTAL = 5;
-let drawColor='#2997ff', brushSize=4, useGradient=false;
-let tool='select', isDrawing=false, lastX=0, lastY=0, lineStart=null, rectStart=null;
-let canvas, ctx, elements=[], selectedEl=null, dragOX=0, dragOY=0, undoStack=[], textInput=null;
+
 
 // ── INIT ─────────────────────────────────────────────────────
 buildDots(); updateNav();
