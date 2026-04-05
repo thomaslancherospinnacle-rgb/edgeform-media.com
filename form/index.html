@@ -479,7 +479,7 @@ function submitVisual(){
   post({...S.data,autoSave:false,complete:true}); goToStep(6);
 }
 function post(payload){
-  const EP='https://script.google.com/macros/s/AKfycbxHw65LmydBEOBaYvsyUwj8UJqovXU116eU0RJ0pXsdIBNCAFrtjZpRVLrXSpJBzUilnA/exec';
+  const EP='https://script.google.com/macros/s/AKfycbwNQfLtAOGamQ4hE2Prpxj9ELdOi2l1Pot111HiCxd8zdxSsZMU808Xk21uh0soimJ1gw/exec';
   payload.source='edgeform-form'; payload.timestamp=new Date().toISOString();
   fetch(EP,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
 }
